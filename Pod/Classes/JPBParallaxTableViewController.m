@@ -26,7 +26,7 @@
 
 - (UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero];
+        _tableView = [[UITableView alloc] initWithFrame:self.view.frame];
         _tableView.scrollEnabled = NO;
         _tableView.delegate = self;
         _tableView.dataSource = self;

@@ -26,8 +26,8 @@
 
 static CGFloat INVIS_DELTA = 50.0f;
 static CGFloat BLUR_DISTANCE = 200.0f;
-static CGFloat HEADER_HEIGHT = 104.0f; // 60.0f;
-static CGFloat IMAGE_HEIGHT = 296.0f;
+static CGFloat HEADER_HEIGHT = 60.0f;
+static CGFloat IMAGE_HEIGHT = 320.0f;
 
 #pragma mark - View life cycle
 
@@ -49,7 +49,7 @@ static CGFloat IMAGE_HEIGHT = 296.0f;
     self.mainScrollView.autoresizesSubviews = YES;
     
     [self.view addSubview:self.mainScrollView];
-//    self.view = self.mainScrollView;
+    //    self.view = self.mainScrollView;
     
     /*** backgroundScrollView ***/
     _backgroundScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), IMAGE_HEIGHT)];
@@ -57,31 +57,31 @@ static CGFloat IMAGE_HEIGHT = 296.0f;
     _backgroundScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _backgroundScrollView.autoresizesSubviews = YES;
     _backgroundScrollView.contentSize = CGSizeMake(self.view.frame.size.width, 1000);
-//    _backgroundScrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    //    _backgroundScrollView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.mainScrollView addSubview:_backgroundScrollView];
     
     /*** headerImageView ***/
-//    _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_backgroundScrollView.frame), CGRectGetHeight(_backgroundScrollView.frame))];
+    //    _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_backgroundScrollView.frame), CGRectGetHeight(_backgroundScrollView.frame))];
     _headerImageView = [[UIImageView alloc] initWithFrame:_backgroundScrollView.bounds];
     _headerImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [_headerImageView setContentMode:UIViewContentModeScaleAspectFill];
     _headerImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_headerImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerImageTapped:)]];
     [_headerImageView setUserInteractionEnabled:YES];
-//    _headerImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    //    _headerImageView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [_backgroundScrollView addSubview:_headerImageView];
     
     /*** blurredImageView ***/
-//    _blurredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_backgroundScrollView.frame), CGRectGetHeight(_backgroundScrollView.frame))];
+    //    _blurredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_backgroundScrollView.frame), CGRectGetHeight(_backgroundScrollView.frame))];
     _blurredImageView = [[UIImageView alloc] initWithFrame:_backgroundScrollView.bounds];
     [_blurredImageView setContentMode:UIViewContentModeScaleAspectFill];
     _blurredImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_blurredImageView setAlpha:0.0f];
     [_blurredImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerImageTapped:)]];
     [_blurredImageView setUserInteractionEnabled:YES];
-//    _blurredImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    //    _blurredImageView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [_backgroundScrollView addSubview:_blurredImageView];
     
@@ -89,21 +89,21 @@ static CGFloat IMAGE_HEIGHT = 296.0f;
     _floatingHeaderView = [[UIView alloc] initWithFrame:_backgroundScrollView.bounds];
     [_floatingHeaderView setBackgroundColor:[UIColor clearColor]];
     [_floatingHeaderView setUserInteractionEnabled:NO];
-//    _floatingHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
+    //    _floatingHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.mainScrollView addSubview:_floatingHeaderView];
     
     /*** scrollViewContainer ***/
     _scrollViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_backgroundScrollView.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - [self offsetHeight] )];
     _scrollViewContainer.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//    _scrollViewContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    //    _scrollViewContainer.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.mainScrollView addSubview:_scrollViewContainer];
     
     /*** contentView ***/
     _contentView = [self contentView];
     _contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//    _contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    //    _contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [_scrollViewContainer addSubview:_contentView];
     
     // Add constraints
@@ -153,89 +153,89 @@ static CGFloat IMAGE_HEIGHT = 296.0f;
     [self.view addConstraints:constraints];
     
     // backgroundScrollView to mainScrollView
-//    constraints = [NSMutableArray array];
-//    views = [NSMutableDictionary dictionary];
-//    
-//    views[@"backgroundScrollView"] = _backgroundScrollView;
-//    
-//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-0-[backgroundScrollView(%f)]", IMAGE_HEIGHT] options:0 metrics:nil views:views]];
-//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[backgroundScrollView]-0-|" options:0 metrics:nil views:views]];
-//    
-//    [self.mainScrollView addConstraints:constraints];
-//    
-//    // headerImageView to backgroundScrollView constraints
-//    constraints = [NSMutableArray array];
-//    views = [NSMutableDictionary dictionary];
-//    
-//    views[@"headerImageView"] = _headerImageView;
-//    
-//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-0-[headerImageView(%f)]", IMAGE_HEIGHT] options:0 metrics:nil views:views]];
-//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[headerImageView]-0-|" options:0 metrics:nil views:views]];
-//    
-//    [_backgroundScrollView addConstraints:constraints];
-//    
-//    // blurredImageView to backgroundScrollView constraints
-//    constraints = [NSMutableArray array];
-//    views = [NSMutableDictionary dictionary];
-//    
-//    views[@"blurredImageView"] = _blurredImageView;
-//    
-//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-0-[blurredImageView(%f)]", IMAGE_HEIGHT] options:0 metrics:nil views:views]];
-//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[blurredImageView]-0-|" options:0 metrics:nil views:views]];
-//    
-//    [_backgroundScrollView addConstraints:constraints];
-//    
-//    // floatingHeaderView to mainScrollView
-//    constraints = [NSMutableArray array];
-//    views = [NSMutableDictionary dictionary];
-//    
-//    views[@"floatingHeaderView"] = _floatingHeaderView;
-//    
-//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-0-[floatingHeaderView(%f)]", IMAGE_HEIGHT] options:0 metrics:nil views:views]];
-//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[floatingHeaderView]-0-|" options:0 metrics:nil views:views]];
-//    
-//    [self.mainScrollView addConstraints:constraints];
-//    
-//    // scrollViewContainer to mainScrollView
-//    constraints = [NSMutableArray array];
-//    views = [NSMutableDictionary dictionary];
-//    
-//    views[@"backgroundScrollView"] = _backgroundScrollView;
-//    views[@"scrollViewContainer"] = _scrollViewContainer;
-//    
-//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[backgroundScrollView]-0-[scrollViewContainer]-0-|" options:0 metrics:nil views:views]];
-//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[scrollViewContainer]-0-|" options:0 metrics:nil views:views]];
-//    
-//    [self.mainScrollView addConstraints:constraints];
-//    
-//    // contentView to scrollViewContainer
-//    constraints = [NSMutableArray array];
-//    views = [NSMutableDictionary dictionary];
-//    
-//    views[@"contentView"] = _contentView;
-//    
-//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[contentView]-0-|" options:0 metrics:nil views:views]];
-//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[contentView]-0-|" options:0 metrics:nil views:views]];
-//    
-//    [_scrollViewContainer addConstraints:constraints];
+    //    constraints = [NSMutableArray array];
+    //    views = [NSMutableDictionary dictionary];
+    //
+    //    views[@"backgroundScrollView"] = _backgroundScrollView;
+    //
+    //    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-0-[backgroundScrollView(%f)]", IMAGE_HEIGHT] options:0 metrics:nil views:views]];
+    //    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[backgroundScrollView]-0-|" options:0 metrics:nil views:views]];
+    //
+    //    [self.mainScrollView addConstraints:constraints];
+    //
+    //    // headerImageView to backgroundScrollView constraints
+    //    constraints = [NSMutableArray array];
+    //    views = [NSMutableDictionary dictionary];
+    //
+    //    views[@"headerImageView"] = _headerImageView;
+    //
+    //    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-0-[headerImageView(%f)]", IMAGE_HEIGHT] options:0 metrics:nil views:views]];
+    //    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[headerImageView]-0-|" options:0 metrics:nil views:views]];
+    //
+    //    [_backgroundScrollView addConstraints:constraints];
+    //
+    //    // blurredImageView to backgroundScrollView constraints
+    //    constraints = [NSMutableArray array];
+    //    views = [NSMutableDictionary dictionary];
+    //
+    //    views[@"blurredImageView"] = _blurredImageView;
+    //
+    //    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-0-[blurredImageView(%f)]", IMAGE_HEIGHT] options:0 metrics:nil views:views]];
+    //    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[blurredImageView]-0-|" options:0 metrics:nil views:views]];
+    //
+    //    [_backgroundScrollView addConstraints:constraints];
+    //
+    //    // floatingHeaderView to mainScrollView
+    //    constraints = [NSMutableArray array];
+    //    views = [NSMutableDictionary dictionary];
+    //
+    //    views[@"floatingHeaderView"] = _floatingHeaderView;
+    //
+    //    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-0-[floatingHeaderView(%f)]", IMAGE_HEIGHT] options:0 metrics:nil views:views]];
+    //    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[floatingHeaderView]-0-|" options:0 metrics:nil views:views]];
+    //
+    //    [self.mainScrollView addConstraints:constraints];
+    //
+    //    // scrollViewContainer to mainScrollView
+    //    constraints = [NSMutableArray array];
+    //    views = [NSMutableDictionary dictionary];
+    //
+    //    views[@"backgroundScrollView"] = _backgroundScrollView;
+    //    views[@"scrollViewContainer"] = _scrollViewContainer;
+    //
+    //    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[backgroundScrollView]-0-[scrollViewContainer]-0-|" options:0 metrics:nil views:views]];
+    //    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[scrollViewContainer]-0-|" options:0 metrics:nil views:views]];
+    //
+    //    [self.mainScrollView addConstraints:constraints];
+    //
+    //    // contentView to scrollViewContainer
+    //    constraints = [NSMutableArray array];
+    //    views = [NSMutableDictionary dictionary];
+    //
+    //    views[@"contentView"] = _contentView;
+    //
+    //    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[contentView]-0-|" options:0 metrics:nil views:views]];
+    //    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[contentView]-0-|" options:0 metrics:nil views:views]];
+    //
+    //    [_scrollViewContainer addConstraints:constraints];
     
 }
 
 - (void)setNeedsScrollViewAppearanceUpdate {
     self.mainScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.frame), _contentView.contentSize.height + CGRectGetHeight(_backgroundScrollView.frame));
-//    if (self.navigationController && !self.navigationController.navigationBarHidden) {
-//        UIEdgeInsets insets = UIEdgeInsetsMake([self navBarHeight], 0.0, 0.0, 0.0);
-//        self.mainScrollView.contentInset = insets;
-//        self.mainScrollView.scrollIndicatorInsets = insets;
-//    }
+    //    if (self.navigationController && !self.navigationController.navigationBarHidden) {
+    //        UIEdgeInsets insets = UIEdgeInsetsMake([self navBarHeight], 0.0, 0.0, 0.0);
+    //        self.mainScrollView.contentInset = insets;
+    //        self.mainScrollView.scrollIndicatorInsets = insets;
+    //    }
 }
 
 #pragma mark - Helpers
 
 - (CGFloat)navBarHeight {
-//    if (self.navigationController && !self.navigationController.navigationBarHidden) {
-//        return CGRectGetHeight(self.navigationController.navigationBar.frame) + 20; //include 20 for the status bar
-//    }
+    //    if (self.navigationController && !self.navigationController.navigationBarHidden) {
+    //        return CGRectGetHeight(self.navigationController.navigationBar.frame) + 20; //include 20 for the status bar
+    //    }
     return 0.0f;
 }
 
